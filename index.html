@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com"
+    />
+    <meta
+      http-equiv="X-Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com"
+    />
+    <link rel="stylesheet" href="style.css">
+    <title>Json MegaApp</title>
+    <script defer src="./renderer.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <div class="tabs">
+        <button class="tab active" data-tab="editor">Editor JSON</button>
+        <button class="tab" data-tab="construction">Remplazador</button>
+      </div>
+      
+      <div class="tab-content active" id="editor">
+        <div id="header">
+          <span id="file-name">No file loaded</span>
+          <div class="header-buttons">
+            <button id="open-btn">Open</button>
+            <button id="save-btn" disabled>Save</button>
+          </div>
+        </div>
+        <div id="json-container">
+          <div id="json-display">Load a JSON file using File > Open JSON or Ctrl+O</div>
+        </div>
+      </div>
+      
+      <div class="tab-content" id="construction">
+        <div class="replacer-container">
+          <h2>Reemplazar Valores JSON</h2>
+          
+          <div class="replacer-section">
+            <label>Claves a reemplazar:</label>
+            <div class="manual-key-group">
+              <input type="text" id="manual-key" placeholder="JSONPath ej: $.nombre, $.persona.edad">
+              <input type="text" id="manual-value" placeholder="Valor">
+              <button id="add-key-btn" class="btn-secondary">Agregar</button>
+            </div>
+            <div id="keys-list" class="preview-area"></div>
+            <div class="config-buttons">
+              <button id="save-config-btn" class="btn-secondary">Guardar Config</button>
+              <button id="load-config-btn" class="btn-secondary">Cargar Config</button>
+            </div>
+          </div>
+
+          <div class="replacer-section">
+            <label>Archivos Destino (múltiples):</label>
+            <div class="file-input-group">
+              <input type="text" id="dest-files-name" readonly placeholder="Seleccione archivos destino...">
+              <button id="load-dest-btn" class="btn-secondary">Cargar Destinos</button>
+            </div>
+            <div id="dest-files-list" class="files-list"></div>
+          </div>
+
+          <div class="replacer-section">
+            <button id="replace-btn" class="btn-primary" disabled>Reemplazar</button>
+          </div>
+
+          <div id="replace-result" class="result-area"></div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
