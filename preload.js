@@ -11,5 +11,6 @@ contextBridge.exposeInMainWorld('electronAPI', {
   saveFileWithDialog: (content) => ipcRenderer.invoke('save-file-with-dialog', content),
   saveConfig: (config) => ipcRenderer.invoke('save-config', config),
   loadConfig: () => ipcRenderer.invoke('load-config'),
-  readFiles: (filePaths) => ipcRenderer.invoke('read-files', filePaths)
+  readFiles: (filePaths) => ipcRenderer.invoke('read-files', filePaths),
+  replaceJsonPath: (expr, json, newValue) => ipcRenderer.invoke('replace-json-path', expr, json, newValue)
 })

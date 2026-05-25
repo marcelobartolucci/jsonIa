@@ -456,21 +456,20 @@ $replaceBtn.addEventListener('click', async () => {
 
   for (const destFile of destFiles) {
     try {
-      const destData = JSON.parse(destFile.content)
+      let destData = JSON.parse(destFile.content)
       let replaced = 0
 
       for (const keyInfo of keys) {
-        const path = parseJsonPath(keyInfo.key)
-        const matches = path ? evaluatePath(destData, path, 0) : []
-        showDiagnostic(`Parse "${keyInfo.key}" → tokens: ${JSON.stringify(path)}\nMatches: ${JSON.stringify(matches)}\nVal: ${keyInfo.value}`)
-        for (const ref of matches) {
-          ref.parent[ref.key] = keyInfo.value
-          replaced++
+        try {
+          const result = await window.electronAPI.replaceJsonPath(keyInfo.key, destData, keyInfo.value)
+          replaced += result.count
+          destData = JSON.parse(result.json)
+        } catch {
+          continue
         }
       }
       if (replaced > 0) {
-        const newContent = JSON.stringify(destData, null, 2)
-        await window.electronAPI.saveFile(destFile.filePath, newContent)
+        await window.electronAPI.saveFile(destFile.filePath, JSON.stringify(destData, null, 2))
       }
       totalReplaced += replaced
       results.push({ file: destFile.filePath, replaced, status: 'success' })
@@ -492,84 +491,3 @@ $replaceBtn.addEventListener('click', async () => {
     </ul>
   `
 })
-
-function parseJsonPath (expr) {
-  if (!expr.startsWith('$')) {
-    expr = '$.' + expr
-  }
-  const tokens = []
-  let i = 0
-  while (i < expr.length) {
-    if (expr[i] === '$') { i++; continue }
-    if (expr[i] === '.') {
-      i++
-      let key = ''
-      while (i < expr.length && expr[i] !== '.' && expr[i] !== '[') {
-        key += expr[i++]
-      }
-      if (key) tokens.push({ type: 'key', value: key })
-    } else if (expr[i] === '[') {
-      i++
-      let content = ''
-      while (i < expr.length && expr[i] !== ']') content += expr[i++]
-      i++ // skip ]
-      content = content.replace(/['"]/g, '')
-      if (content === '*') {
-        tokens.push({ type: 'wildcard' })
-      } else if (!isNaN(content) && content !== '') {
-        tokens.push({ type: 'index', value: parseInt(content) })
-      } else if (content) {
-        tokens.push({ type: 'key', value: content })
-      }
-    } else {
-      i++
-    }
-  }
-  return tokens.length > 0 ? tokens : null
-}
-
-function evaluatePath (obj, path, depth) {
-  if (depth >= path.length) return [{ parent: null, key: null, value: obj }]
-
-  const token = path[depth]
-  const results = []
-  const isLast = depth + 1 === path.length
-
-  if (token.type === 'key') {
-    if (obj && typeof obj === 'object' && token.value in obj) {
-      if (isLast) {
-        results.push({ parent: obj, key: token.value, value: obj[token.value] })
-      } else {
-        results.push(...evaluatePath(obj[token.value], path, depth + 1))
-      }
-    }
-  } else if (token.type === 'index') {
-    if (Array.isArray(obj) && token.value < obj.length) {
-      if (isLast) {
-        results.push({ parent: obj, key: token.value, value: obj[token.value] })
-      } else {
-        results.push(...evaluatePath(obj[token.value], path, depth + 1))
-      }
-    }
-  } else if (token.type === 'wildcard') {
-    if (Array.isArray(obj)) {
-      for (let i = 0; i < obj.length; i++) {
-        if (isLast) {
-          results.push({ parent: obj, key: i, value: obj[i] })
-        } else {
-          results.push(...evaluatePath(obj[i], path, depth + 1))
-        }
-      }
-    }
-  }
-
-  return results
-}
-
-function showDiagnostic (msg) {
-  const el = document.createElement('pre')
-  el.style.cssText = 'position:fixed;bottom:0;left:0;right:0;background:#333;color:#0f0;padding:12px;z-index:9999;font-size:13px;margin:0;max-height:200px;overflow:auto'
-  el.textContent = msg
-  document.body.appendChild(el)
-  setTimeout(() => el.remove(), 8000)
-}

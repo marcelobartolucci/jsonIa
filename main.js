@@ -1,6 +1,7 @@
 const { app, BrowserWindow, ipcMain, dialog } = require('electron')
 const path = require('path')
 const fs = require('fs')
+const { JSONPath } = require('jsonpath-plus')
 const { setMainMenu } = require('./menu.js')
 
 let mainWindow
@@ -82,6 +83,14 @@ ipcMain.handle('read-files', async (event, filePaths) => {
     filePath,
     content: fs.readFileSync(filePath, 'utf-8')
   }))
+})
+
+ipcMain.handle('replace-json-path', async (event, expr, json, newValue) => {
+  const results = JSONPath({ path: expr, json, resultType: 'all' })
+  for (const ref of results) {
+    ref.parent[ref.parentProperty] = newValue
+  }
+  return { count: results.length, json: JSON.stringify(json, null, 2) }
 })
 
 app.whenReady().then(() => {
