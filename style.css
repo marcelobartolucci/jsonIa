@@ -563,6 +563,12 @@ body {
     display: flex;
     gap: 8px;
     margin-top: 12px;
+    width: 100%;
+}
+
+.config-buttons button {
+    flex: 1;
+    text-align: center;
 }
 
 .key-tag {
@@ -600,7 +606,32 @@ body {
 .files-list li {
     margin-bottom: 4px;
     font-size: 13px;
-    word-break: break-all;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.dest-file-path {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    min-width: 0;
+    flex: 1;
+}
+
+.dest-remove-btn {
+    background: none;
+    border: none;
+    color: var(--error, #e53935);
+    cursor: pointer;
+    font-size: 16px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    flex-shrink: 0;
+}
+
+.dest-remove-btn:hover {
+    background-color: rgba(229, 57, 53, 0.1);
 }
 
 .result-area {

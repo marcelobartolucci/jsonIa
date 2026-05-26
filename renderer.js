@@ -411,18 +411,15 @@ async function loadConfig () {
   if (config) {
     keys = config.keys || []
     renderKeys()
-    if (config.destPaths && config.destPaths.length > 0) {
-      try {
-        const files = await window.electronAPI.readFiles(config.destPaths)
-        destFiles = files
-        $destFilesName.value = files.map(f => f.filePath).join(', ')
-        $destFilesList.innerHTML = '<ul>' + files.map(f =>
-          `<li>${f.filePath}</li>`
-        ).join('') + '</ul>'
-        updateReplaceBtn()
-      } catch (e) {
-        $destFilesList.innerHTML = '<div class="error">Error al cargar archivos destino</div>'
-      }
+      if (config.destPaths && config.destPaths.length > 0) {
+        try {
+          const files = await window.electronAPI.readFiles(config.destPaths)
+          destFiles = files
+          renderDestFiles()
+          updateReplaceBtn()
+        } catch (e) {
+          $destFilesList.innerHTML = '<div class="error">Error al cargar archivos destino</div>'
+        }
     }
   }
 }
@@ -435,17 +432,42 @@ window.electronAPI.onLoadConfig(loadConfig)
 $loadDestBtn.addEventListener('click', async () => {
   const files = await window.electronAPI.openFiles()
   if (files.length > 0) {
-    destFiles = files
-    $destFilesName.value = files.map(f => f.filePath).join(', ')
-    $destFilesList.innerHTML = '<ul>' + files.map(f => 
-      `<li>${f.filePath}</li>`
-    ).join('') + '</ul>'
+    const existingPaths = new Set(destFiles.map(f => f.filePath))
+    for (const file of files) {
+      if (!existingPaths.has(file.filePath)) {
+        destFiles.push(file)
+        existingPaths.add(file.filePath)
+      }
+    }
+    renderDestFiles()
     updateReplaceBtn()
   }
 })
 
 function updateReplaceBtn () {
   $replaceBtn.disabled = !(keys.length > 0 && destFiles.length > 0)
+}
+
+function renderDestFiles () {
+  if (destFiles.length === 0) {
+    $destFilesList.innerHTML = ''
+    $destFilesName.value = ''
+  } else {
+    $destFilesName.value = destFiles.map(f => f.filePath).join(', ')
+    $destFilesList.innerHTML = '<ul>' + destFiles.map((f, i) => {
+      const name = f.filePath.split(/[/\\]/).pop()
+      return `<li><span class="dest-file-path" title="${f.filePath}">${name}</span> <button class="dest-remove-btn" data-index="${i}" title="Quitar">✕</button></li>`
+    }).join('') + '</ul>'
+    $destFilesList.querySelectorAll('.dest-remove-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation()
+        const i = parseInt(btn.dataset.index)
+        destFiles.splice(i, 1)
+        renderDestFiles()
+        updateReplaceBtn()
+      })
+    })
+  }
 }
 
 $replaceBtn.addEventListener('click', async () => {
