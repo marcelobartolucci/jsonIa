@@ -15,9 +15,9 @@ $saveBtn.addEventListener('click', async () => {
     const updatedJson = getUpdatedJson()
     const content = JSON.stringify(updatedJson, null, 2)
     await window.electronAPI.saveFile(currentFilePath, content)
-    window.alert('File saved successfully!')
+    window.alert(t('editor.saveSuccess'))
   } catch (e) {
-    window.alert('Error saving file: ' + e.message)
+    window.alert(t('editor.saveError', { message: e.message }))
   }
 })
 
@@ -31,7 +31,7 @@ async function openFile () {
       renderJson(jsonData)
       $saveBtn.disabled = false
     } catch (e) {
-      $jsonDisplay.innerHTML = '<div class="error">Error parsing JSON: ' + e.message + '</div>'
+      $jsonDisplay.innerHTML = '<div class="error">' + t('editor.parseError', { message: e.message }) + '</div>'
       $saveBtn.disabled = true
     }
   }
@@ -115,7 +115,7 @@ function renderArray (value, key, depth, container, isRoot, path) {
 
   const keyDisplay = isRoot ? '' : `<span class="json-key">"${key}": </span>`
   row.innerHTML = row.innerHTML + keyDisplay + '<span class="json-bracket">[</span>'
-  row.innerHTML = row.innerHTML + `<span class="json-count">${value.length} items</span>`
+  row.innerHTML = row.innerHTML + `<span class="json-count">${t('editor.items', { count: value.length })}</span>`
   row.innerHTML = row.innerHTML + '<span class="json-bracket">]</span>'
 
   contentWrapper.appendChild(row)
@@ -158,7 +158,7 @@ function renderObject (value, key, depth, container, isRoot, path) {
 
   const keyDisplay = isRoot ? '' : `<span class="json-key">"${key}": </span>`
   row.innerHTML = row.innerHTML + keyDisplay + '<span class="json-bracket">{</span>'
-  row.innerHTML = row.innerHTML + `<span class="json-count">${Object.keys(value).length} keys</span>`
+  row.innerHTML = row.innerHTML + `<span class="json-count">${t('editor.keys', { count: Object.keys(value).length })}</span>`
   row.innerHTML = row.innerHTML + '<span class="json-bracket">}</span>'
 
   contentWrapper.appendChild(row)

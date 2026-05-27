@@ -1,0 +1,51 @@
+{
+  "app.title": "Json MegaApp",
+
+  "editor.tab": "JSON Editor",
+  "replacer.tab": "Replacer",
+
+  "file.noLoaded": "No file loaded",
+  "file.open": "Open",
+  "file.save": "Save",
+  "editor.placeholder": "Load a JSON file using File > Open JSON or Ctrl+O",
+
+  "editor.saveSuccess": "File saved successfully!",
+  "editor.saveError": "Error saving file: {message}",
+  "editor.parseError": "Error parsing JSON: {message}",
+
+  "editor.items": "{count} items",
+  "editor.keys": "{count} keys",
+
+  "replacer.title": "Replace JSON Values",
+  "replacer.keysLabel": "Keys to replace:",
+  "replacer.keyPlaceholder": "JSONPath e.g. $.name, $.person.age",
+  "replacer.valuePlaceholder": "Value",
+  "replacer.addKey": "Add",
+  "replacer.destLabel": "Destination Files (multiple):",
+  "replacer.destPlaceholder": "Select destination files...",
+  "replacer.loadDest": "Load Destinations",
+  "replacer.replace": "Replace",
+  "replacer.saveConfig": "Save Config",
+  "replacer.loadConfig": "Load Config",
+  "replacer.keyExists": "Key \"{key}\" already exists with value:\n{value}\n\nDo you want to overwrite it?",
+  "replacer.noKeys": "No keys added. Add keys manually or load a configuration.",
+  "replacer.editTitle": "Edit",
+  "replacer.deleteTitle": "Delete",
+  "replacer.removeTitle": "Remove",
+  "replacer.resultsTitle": "Results:",
+  "replacer.totalReplaced": "Total values replaced: {count}",
+  "replacer.replacedCount": "{count} values replaced",
+  "replacer.replaceError": "Error: {message}",
+  "replacer.configSaved": "Configuration saved to:\n{path}",
+  "replacer.loadError": "Error loading destination files",
+
+  "utils.copyTitle": "Copy to clipboard",
+  "utils.pasteTitle": "Paste from clipboard",
+
+  "menu.file": "File",
+  "menu.openJson": "Open JSON",
+  "menu.saveConfig": "Save Config",
+  "menu.loadConfig": "Load Config",
+  "menu.preferences": "Preferences",
+  "menu.language": "Language"
+}

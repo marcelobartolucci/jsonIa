@@ -1,5 +1,59 @@
 const $ = selector => document.querySelector(selector)
 
+let locale = {}
+let currentLang = localStorage.getItem('locale') || 'es'
+const localeChangeCallbacks = []
+
+function t (key, vars = {}) {
+  let str = locale[key]
+  if (str === undefined) str = key
+  Object.entries(vars).forEach(([k, v]) => {
+    str = str.replace(new RegExp(`\\{${k}\\}`, 'g'), v)
+  })
+  return str
+}
+
+function translatePage () {
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    if (el.tagName === 'TITLE') {
+      document.title = t(el.dataset.i18n)
+    } else {
+      el.textContent = t(el.dataset.i18n)
+    }
+  })
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    el.placeholder = t(el.dataset.i18nPlaceholder)
+  })
+  document.querySelectorAll('[data-i18n-title]').forEach(el => {
+    el.title = t(el.dataset.i18nTitle)
+  })
+}
+
+function onLocaleChange (callback) {
+  localeChangeCallbacks.push(callback)
+}
+
+async function loadLocale (lang) {
+  const data = await window.electronAPI.loadLocale(lang)
+  if (data) {
+    locale = data
+    currentLang = lang
+    localStorage.setItem('locale', lang)
+    translatePage()
+    localeChangeCallbacks.forEach(cb => cb())
+  }
+}
+
+// When menu triggers a locale change
+window.electronAPI.onChangeLocale((event, lang) => {
+  loadLocale(lang)
+})
+
+// Start loading locale immediately, then sync menu
+loadLocale(currentLang).then(() => {
+  window.electronAPI.updateLocale(currentLang)
+})
+
 function pathToString (path) {
   return path.map((p, i) => {
     if (typeof p === 'number') return `[${p}]`
@@ -29,7 +83,7 @@ function createEditableInput (path, value, type) {
   const copyBtn = document.createElement('button')
   copyBtn.className = 'input-btn copy-btn'
   copyBtn.innerHTML = '📋'
-  copyBtn.title = 'Copy to clipboard'
+  copyBtn.title = t('utils.copyTitle')
   copyBtn.addEventListener('click', async (e) => {
     e.stopPropagation()
     try {
@@ -44,7 +98,7 @@ function createEditableInput (path, value, type) {
   const pasteBtn = document.createElement('button')
   pasteBtn.className = 'input-btn paste-btn'
   pasteBtn.innerHTML = '📨'
-  pasteBtn.title = 'Paste from clipboard'
+  pasteBtn.title = t('utils.pasteTitle')
   pasteBtn.addEventListener('click', async (e) => {
     e.stopPropagation()
     try {

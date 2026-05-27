@@ -20,7 +20,7 @@ $addKeyBtn.addEventListener('click', () => {
 
   const existing = keys.find(k => k.key === key)
   if (existing) {
-    const overwrite = confirm('La clave "' + key + '" ya existe con valor:\n' + JSON.stringify(existing.value) + '\n\n¿Desea sobrescribirla?')
+    const overwrite = confirm(t('replacer.keyExists', { key, value: JSON.stringify(existing.value) }))
     if (!overwrite) return
     existing.value = parseValue(value)
     $manualKey.value = ''
@@ -91,13 +91,13 @@ $replaceBtn.addEventListener('click', async () => {
   }
 
   $replaceResult.innerHTML = `
-    <h3>Resultados:</h3>
-    <p><strong>Total de valores reemplazados:</strong> ${totalReplaced}</p>
+    <h3>${t('replacer.resultsTitle')}</h3>
+    <p><strong>${t('replacer.totalReplaced', { count: totalReplaced })}</strong></p>
     <ul>
       ${results.map(r => `
         <li class="${r.status}">
-          ${r.file}: ${r.replaced} valores reemplazados
-          ${r.error ? `- Error: ${r.error}` : ''}
+          ${r.file}: ${t('replacer.replacedCount', { count: r.replaced })}
+          ${r.error ? `- ${t('replacer.replaceError', { message: r.error })}` : ''}
         </li>
       `).join('')}
     </ul>
@@ -111,14 +111,14 @@ window.electronAPI.onLoadConfig(loadConfig)
 
 function renderKeys () {
   if (keys.length === 0) {
-    $keysList.innerHTML = '<p style="opacity:0.6">No hay claves agregadas. Agregue claves manualmente o cargue una configuración.</p>'
+    $keysList.innerHTML = `<p style="opacity:0.6">${t('replacer.noKeys')}</p>`
   } else {
     $keysList.innerHTML = '<div class="keys-list">' + keys.map((k, i) =>
       `<span class="key-tag manual-key" data-index="${i}">
         <span class="key-name">${k.key}</span>: <span class="key-value">${JSON.stringify(k.value)}</span>
         <span class="key-actions">
-          <button class="key-edit-btn" data-index="${i}" title="Editar">✎</button>
-          <button class="key-delete-btn" data-index="${i}" title="Eliminar">✕</button>
+          <button class="key-edit-btn" data-index="${i}" title="${t('replacer.editTitle')}">✎</button>
+          <button class="key-delete-btn" data-index="${i}" title="${t('replacer.deleteTitle')}">✕</button>
         </span>
       </span>`
     ).join('') + '</div>'
@@ -156,7 +156,7 @@ function renderDestFiles () {
     $destFilesName.value = destFiles.map(f => f.filePath).join(', ')
     $destFilesList.innerHTML = '<ul>' + destFiles.map((f, i) => {
       const name = f.filePath.split(/[/\\]/).pop()
-      return `<li><span class="dest-file-path" title="${f.filePath}">${name}</span> <button class="dest-remove-btn" data-index="${i}" title="Quitar">✕</button></li>`
+      return `<li><span class="dest-file-path" title="${f.filePath}">${name}</span> <button class="dest-remove-btn" data-index="${i}" title="${t('replacer.removeTitle')}">✕</button></li>`
     }).join('') + '</ul>'
     $destFilesList.querySelectorAll('.dest-remove-btn').forEach(btn => {
       btn.addEventListener('click', (e) => {
@@ -176,12 +176,12 @@ function updateReplaceBtn () {
 
 async function saveConfig () {
   const config = {
-    keys: keys,
+    keys,
     destPaths: destFiles.map(f => f.filePath)
   }
   const result = await window.electronAPI.saveConfig(config)
   if (result) {
-    alert('Configuración guardada en:\n' + result)
+    alert(t('replacer.configSaved', { path: result }))
   }
 }
 
@@ -197,10 +197,11 @@ async function loadConfig () {
         renderDestFiles()
         updateReplaceBtn()
       } catch (e) {
-        $destFilesList.innerHTML = '<div class="error">Error al cargar archivos destino</div>'
+        $destFilesList.innerHTML = `<div class="error">${t('replacer.loadError')}</div>`
       }
     }
   }
 }
 
+onLocaleChange(renderKeys)
 renderKeys()

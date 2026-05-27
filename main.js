@@ -6,6 +6,16 @@ const { setMainMenu } = require('./menu.js')
 
 let mainWindow
 
+function loadLocaleData (lang) {
+  const filePath = path.join(__dirname, 'locales', `${lang}.json`)
+  try {
+    const content = fs.readFileSync(filePath, 'utf-8')
+    return JSON.parse(content)
+  } catch {
+    return null
+  }
+}
+
 const createWindow = () => {
   mainWindow = new BrowserWindow({
     width: 900,
@@ -20,8 +30,22 @@ const createWindow = () => {
   })
   mainWindow.loadFile('index.html')
 
-  setMainMenu(mainWindow)
+  const locale = loadLocaleData('es')
+  setMainMenu(mainWindow, locale, 'es')
 }
+
+ipcMain.handle('load-locale', async (event, lang) => {
+  return loadLocaleData(lang)
+})
+
+ipcMain.handle('update-locale', async (event, lang) => {
+  const locale = loadLocaleData(lang)
+  if (locale) setMainMenu(mainWindow, locale, lang)
+})
+
+app.whenReady().then(() => {
+  createWindow()
+})
 
 ipcMain.handle('open-file', async () => {
   const result = await dialog.showOpenDialog(mainWindow, {
@@ -96,8 +120,4 @@ ipcMain.handle('replace-json-path', async (event, expr, json, newValue) => {
     ref.parent[ref.parentProperty] = newValue
   }
   return { count: results.length, json: JSON.stringify(json, null, 2) }
-})
-
-app.whenReady().then(() => {
-  createWindow()
 })

@@ -12,5 +12,8 @@ contextBridge.exposeInMainWorld('electronAPI', {
   saveConfig: (config) => ipcRenderer.invoke('save-config', config),
   loadConfig: () => ipcRenderer.invoke('load-config'),
   readFiles: (filePaths) => ipcRenderer.invoke('read-files', filePaths),
-  replaceJsonPath: (expr, json, newValue) => ipcRenderer.invoke('replace-json-path', expr, json, newValue)
+  replaceJsonPath: (expr, json, newValue) => ipcRenderer.invoke('replace-json-path', expr, json, newValue),
+  loadLocale: (lang) => ipcRenderer.invoke('load-locale', lang),
+  updateLocale: (lang) => ipcRenderer.invoke('update-locale', lang),
+  onChangeLocale: (callback) => ipcRenderer.on('change-locale', callback)
 })

@@ -1,0 +1,51 @@
+{
+  "app.title": "Json MegaApp",
+
+  "editor.tab": "Editor JSON",
+  "replacer.tab": "Remplazador",
+
+  "file.noLoaded": "Ningún archivo cargado",
+  "file.open": "Abrir",
+  "file.save": "Guardar",
+  "editor.placeholder": "Cargue un archivo JSON usando Archivo > Abrir JSON o Ctrl+O",
+
+  "editor.saveSuccess": "¡Archivo guardado correctamente!",
+  "editor.saveError": "Error al guardar el archivo: {message}",
+  "editor.parseError": "Error al analizar el JSON: {message}",
+
+  "editor.items": "{count} elementos",
+  "editor.keys": "{count} claves",
+
+  "replacer.title": "Reemplazar Valores JSON",
+  "replacer.keysLabel": "Claves a reemplazar:",
+  "replacer.keyPlaceholder": "JSONPath ej: $.nombre, $.persona.edad",
+  "replacer.valuePlaceholder": "Valor",
+  "replacer.addKey": "Agregar",
+  "replacer.destLabel": "Archivos Destino (múltiples):",
+  "replacer.destPlaceholder": "Seleccione archivos destino...",
+  "replacer.loadDest": "Cargar Destinos",
+  "replacer.replace": "Reemplazar",
+  "replacer.saveConfig": "Guardar Config",
+  "replacer.loadConfig": "Cargar Config",
+  "replacer.keyExists": "La clave \"{key}\" ya existe con valor:\n{value}\n\n¿Desea sobrescribirla?",
+  "replacer.noKeys": "No hay claves agregadas. Agregue claves manualmente o cargue una configuración.",
+  "replacer.editTitle": "Editar",
+  "replacer.deleteTitle": "Eliminar",
+  "replacer.removeTitle": "Quitar",
+  "replacer.resultsTitle": "Resultados:",
+  "replacer.totalReplaced": "Total de valores reemplazados: {count}",
+  "replacer.replacedCount": "{count} valores reemplazados",
+  "replacer.replaceError": "Error: {message}",
+  "replacer.configSaved": "Configuración guardada en:\n{path}",
+  "replacer.loadError": "Error al cargar archivos destino",
+
+  "utils.copyTitle": "Copiar al portapapeles",
+  "utils.pasteTitle": "Pegar desde el portapapeles",
+
+  "menu.file": "Archivo",
+  "menu.openJson": "Abrir JSON",
+  "menu.saveConfig": "Guardar Config",
+  "menu.loadConfig": "Cargar Config",
+  "menu.preferences": "Preferencias",
+  "menu.language": "Idioma"
+}

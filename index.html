@@ -11,56 +11,56 @@
       content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com"
     />
     <link rel="stylesheet" href="style.css">
-    <title>Json MegaApp</title>
+    <title data-i18n="app.title">Json MegaApp</title>
   </head>
   <body>
     <div id="app">
       <div class="tabs">
-        <button class="tab active" data-tab="editor">Editor JSON</button>
-        <button class="tab" data-tab="construction">Remplazador</button>
+        <button class="tab active" data-tab="editor" data-i18n="editor.tab">Editor JSON</button>
+        <button class="tab" data-tab="construction" data-i18n="replacer.tab">Remplazador</button>
       </div>
       
       <div class="tab-content active" id="editor">
         <div id="header">
-          <span id="file-name">No file loaded</span>
+          <span id="file-name" data-i18n="file.noLoaded">No file loaded</span>
           <div class="header-buttons">
-            <button id="open-btn">Open</button>
-            <button id="save-btn" disabled>Save</button>
+            <button id="open-btn" data-i18n="file.open">Open</button>
+            <button id="save-btn" data-i18n="file.save" disabled>Save</button>
           </div>
         </div>
         <div id="json-container">
-          <div id="json-display">Load a JSON file using File > Open JSON or Ctrl+O</div>
+          <div id="json-display" data-i18n="editor.placeholder">Load a JSON file using File > Open JSON or Ctrl+O</div>
         </div>
       </div>
       
       <div class="tab-content" id="construction">
         <div class="replacer-container">
-          <h2>Reemplazar Valores JSON</h2>
+          <h2 data-i18n="replacer.title">Reemplazar Valores JSON</h2>
           
           <div class="replacer-section">
-            <label>Claves a reemplazar:</label>
+            <label data-i18n="replacer.keysLabel">Claves a reemplazar:</label>
             <div class="manual-key-group">
-              <input type="text" id="manual-key" placeholder="JSONPath ej: $.nombre, $.persona.edad">
-              <input type="text" id="manual-value" placeholder="Valor">
-              <button id="add-key-btn" class="btn-secondary">Agregar</button>
+              <input type="text" id="manual-key" data-i18n-placeholder="replacer.keyPlaceholder" placeholder="JSONPath ej: $.nombre, $.persona.edad">
+              <input type="text" id="manual-value" data-i18n-placeholder="replacer.valuePlaceholder" placeholder="Valor">
+              <button id="add-key-btn" class="btn-secondary" data-i18n="replacer.addKey">Agregar</button>
             </div>
             <div id="keys-list" class="preview-area"></div>
           </div>
 
           <div class="replacer-section">
-            <label>Archivos Destino (múltiples):</label>
+            <label data-i18n="replacer.destLabel">Archivos Destino (múltiples):</label>
             <div class="file-input-group">
-              <input type="text" id="dest-files-name" readonly placeholder="Seleccione archivos destino...">
-              <button id="load-dest-btn" class="btn-secondary">Cargar Destinos</button>
+              <input type="text" id="dest-files-name" readonly data-i18n-placeholder="replacer.destPlaceholder" placeholder="Seleccione archivos destino...">
+              <button id="load-dest-btn" class="btn-secondary" data-i18n="replacer.loadDest">Cargar Destinos</button>
             </div>
             <div id="dest-files-list" class="files-list"></div>
           </div>
 
           <div class="replacer-section">
-            <button id="replace-btn" class="btn-primary" disabled>Reemplazar</button>
+            <button id="replace-btn" class="btn-primary" data-i18n="replacer.replace" disabled>Reemplazar</button>
             <div class="config-buttons">
-              <button id="save-config-btn" class="btn-secondary">Guardar Config</button>
-              <button id="load-config-btn" class="btn-secondary">Cargar Config</button>
+              <button id="save-config-btn" class="btn-secondary" data-i18n="replacer.saveConfig">Guardar Config</button>
+              <button id="load-config-btn" class="btn-secondary" data-i18n="replacer.loadConfig">Cargar Config</button>
             </div>
           </div>
 
