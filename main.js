@@ -13,7 +13,9 @@ const createWindow = () => {
     minWidth: 400,
     minHeight: 400,
     webPreferences: {
-      preload: path.join(__dirname, '/preload.js')
+      preload: path.join(__dirname, '/preload.js'),
+      contextIsolation: true,
+      nodeIntegration: false
     }
   })
   mainWindow.loadFile('index.html')
@@ -79,10 +81,13 @@ ipcMain.handle('load-config', async () => {
 })
 
 ipcMain.handle('read-files', async (event, filePaths) => {
-  return filePaths.map(filePath => ({
-    filePath,
-    content: fs.readFileSync(filePath, 'utf-8')
-  }))
+  return filePaths.map(filePath => {
+    try {
+      return { filePath, content: fs.readFileSync(filePath, 'utf-8') }
+    } catch {
+      return { filePath, content: null, error: `Could not read ${filePath}` }
+    }
+  })
 })
 
 ipcMain.handle('replace-json-path', async (event, expr, json, newValue) => {

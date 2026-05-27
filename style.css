@@ -346,57 +346,6 @@ body {
     margin: 8px 0;
 }
 
-.construction-screen {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    color: var(--text-secondary);
-}
-
-.construction-icon {
-    font-size: 64px;
-    margin-bottom: 16px;
-    animation: bounce 2s infinite;
-}
-
-.construction-screen h2 {
-    margin: 0 0 8px 0;
-    color: var(--text-primary);
-    font-weight: 500;
-}
-
-.construction-screen p {
-    margin: 0;
-}
-
-@keyframes bounce {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
-}
-
-@media (prefers-color-scheme: dark) {
-    .json-input {
-        background-color: rgba(255, 255, 255, 0.08);
-    }
-    .json-input:focus {
-        background-color: rgba(255, 255, 255, 0.12);
-    }
-    .json-row:hover {
-        background-color: rgba(255, 255, 255, 0.04);
-    }
-    .collapsible-row:hover {
-        background-color: rgba(98, 0, 238, 0.2);
-    }
-    .input-btn {
-        background-color: rgba(255, 255, 255, 0.08);
-    }
-    .input-btn:hover {
-        background-color: rgba(255, 255, 255, 0.16);
-    }
-}
-
 .replacer-container {
     flex: 1;
     margin: 16px;
@@ -664,13 +613,29 @@ body {
 }
 
 @media (prefers-color-scheme: dark) {
-    .file-input-group input {
-        background-color: rgba(255, 255, 255, 0.08);
-        border-color: rgba(255, 255, 255, 0.2);
-    }
+    .json-input,
+    .file-input-group input,
     .manual-key-group input {
         background-color: rgba(255, 255, 255, 0.08);
+    }
+    .json-input:focus {
+        background-color: rgba(255, 255, 255, 0.12);
+    }
+    .file-input-group input,
+    .manual-key-group input {
         border-color: rgba(255, 255, 255, 0.2);
+    }
+    .json-row:hover {
+        background-color: rgba(255, 255, 255, 0.04);
+    }
+    .collapsible-row:hover {
+        background-color: rgba(98, 0, 238, 0.2);
+    }
+    .input-btn {
+        background-color: rgba(255, 255, 255, 0.08);
+    }
+    .input-btn:hover {
+        background-color: rgba(255, 255, 255, 0.16);
     }
     .preview-area,
     .files-list,
