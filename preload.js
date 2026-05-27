@@ -15,5 +15,6 @@ contextBridge.exposeInMainWorld('electronAPI', {
   replaceJsonPath: (expr, json, newValue) => ipcRenderer.invoke('replace-json-path', expr, json, newValue),
   loadLocale: (lang) => ipcRenderer.invoke('load-locale', lang),
   updateLocale: (lang) => ipcRenderer.invoke('update-locale', lang),
-  onChangeLocale: (callback) => ipcRenderer.on('change-locale', callback)
+  onChangeLocale: (callback) => ipcRenderer.on('change-locale', callback),
+  setTheme: (theme) => ipcRenderer.invoke('set-theme', theme)
 })

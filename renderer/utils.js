@@ -2,6 +2,7 @@ const $ = selector => document.querySelector(selector)
 
 let locale = {}
 let currentLang = localStorage.getItem('locale') || 'es'
+let currentTheme = localStorage.getItem('theme') || 'system'
 const localeChangeCallbacks = []
 
 function t (key, vars = {}) {
@@ -44,15 +45,29 @@ async function loadLocale (lang) {
   }
 }
 
+function applyTheme (theme) {
+  currentTheme = theme
+  document.documentElement.dataset.theme = theme
+}
+
 // When menu triggers a locale change
 window.electronAPI.onChangeLocale((event, lang) => {
   loadLocale(lang)
 })
 
-// Start loading locale immediately, then sync menu
+// When menu triggers a theme change
+window.electronAPI.onUpdateTheme((event, theme) => {
+  applyTheme(theme)
+  localStorage.setItem('theme', theme)
+  window.electronAPI.setTheme(theme)
+})
+
+// Start loading locale immediately, then sync locale & theme with main process
 loadLocale(currentLang).then(() => {
   window.electronAPI.updateLocale(currentLang)
 })
+applyTheme(currentTheme)
+window.electronAPI.setTheme(currentTheme)
 
 function pathToString (path) {
   return path.map((p, i) => {

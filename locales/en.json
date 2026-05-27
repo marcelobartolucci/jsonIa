@@ -47,5 +47,9 @@
   "menu.saveConfig": "Save Config",
   "menu.loadConfig": "Load Config",
   "menu.preferences": "Preferences",
-  "menu.language": "Language"
+  "menu.language": "Language",
+  "menu.theme": "Theme",
+  "menu.theme.system": "System",
+  "menu.theme.light": "Light",
+  "menu.theme.dark": "Dark"
 }

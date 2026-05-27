@@ -12,7 +12,7 @@ function loadLocaleData (lang) {
   }
 }
 
-const setMainMenu = (mainWindow, locale, currentLang) => {
+const setMainMenu = (mainWindow, locale, currentLang, currentTheme) => {
   const t = (key) => (locale && locale[key]) || key
   const isMac = process.platform === 'darwin'
 
@@ -28,9 +28,26 @@ const setMainMenu = (mainWindow, locale, currentLang) => {
       click: () => {
         const newLocale = loadLocaleData(lang.value)
         if (newLocale) {
-          setMainMenu(mainWindow, newLocale, lang.value)
+          setMainMenu(mainWindow, newLocale, lang.value, currentTheme)
           mainWindow.webContents.send('change-locale', lang.value)
         }
+      }
+    }))
+  }
+
+  function buildThemeSubmenu () {
+    const themes = [
+      { value: 'system', label: t('menu.theme.system') },
+      { value: 'light', label: t('menu.theme.light') },
+      { value: 'dark', label: t('menu.theme.dark') }
+    ]
+    return themes.map(theme => ({
+      label: theme.label,
+      type: 'radio',
+      checked: currentTheme === theme.value,
+      click: () => {
+        setMainMenu(mainWindow, locale, currentLang, theme.value)
+        mainWindow.webContents.send('update-theme', theme.value)
       }
     }))
   }
@@ -62,6 +79,10 @@ const setMainMenu = (mainWindow, locale, currentLang) => {
             {
               label: t('menu.language'),
               submenu: buildLanguageSubmenu()
+            },
+            {
+              label: t('menu.theme'),
+              submenu: buildThemeSubmenu()
             }
           ]
         },

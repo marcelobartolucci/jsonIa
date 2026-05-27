@@ -1,10 +1,11 @@
-const { app, BrowserWindow, ipcMain, dialog } = require('electron')
+const { app, BrowserWindow, ipcMain, dialog, nativeTheme } = require('electron')
 const path = require('path')
 const fs = require('fs')
 const { JSONPath } = require('jsonpath-plus')
 const { setMainMenu } = require('./menu.js')
 
 let mainWindow
+let currentTheme = 'system'
 
 function loadLocaleData (lang) {
   const filePath = path.join(__dirname, 'locales', `${lang}.json`)
@@ -31,7 +32,7 @@ const createWindow = () => {
   mainWindow.loadFile('index.html')
 
   const locale = loadLocaleData('es')
-  setMainMenu(mainWindow, locale, 'es')
+  setMainMenu(mainWindow, locale, 'es', currentTheme)
 }
 
 ipcMain.handle('load-locale', async (event, lang) => {
@@ -40,7 +41,12 @@ ipcMain.handle('load-locale', async (event, lang) => {
 
 ipcMain.handle('update-locale', async (event, lang) => {
   const locale = loadLocaleData(lang)
-  if (locale) setMainMenu(mainWindow, locale, lang)
+  if (locale) setMainMenu(mainWindow, locale, lang, currentTheme)
+})
+
+ipcMain.handle('set-theme', async (event, theme) => {
+  currentTheme = theme
+  nativeTheme.themeSource = theme
 })
 
 app.whenReady().then(() => {

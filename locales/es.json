@@ -47,5 +47,9 @@
   "menu.saveConfig": "Guardar Config",
   "menu.loadConfig": "Cargar Config",
   "menu.preferences": "Preferencias",
-  "menu.language": "Idioma"
+  "menu.language": "Idioma",
+  "menu.theme": "Tema",
+  "menu.theme.system": "Sistema",
+  "menu.theme.light": "Claro",
+  "menu.theme.dark": "Oscuro"
 }

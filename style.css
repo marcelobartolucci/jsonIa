@@ -1,8 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
 
-:root {
-    --scheme: light dark;
-    color-scheme: var(--scheme);
+:root { color-scheme: light dark; }
+[data-theme="light"] { color-scheme: light; }
+[data-theme="dark"] { color-scheme: dark; }
+
+:root, [data-theme="light"] {
     --primary: #6200ee;
     --primary-variant: #3700b3;
     --secondary: #03dac6;
@@ -13,16 +15,64 @@
     --text-secondary: rgba(0, 0, 0, 0.60);
     --divider: rgba(0, 0, 0, 0.12);
     --shadow: 0 2px 4px rgba(0,0,0,0.1);
+    --input-bg: rgba(0, 0, 0, 0.06);
+    --input-bg-focus: rgba(0, 0, 0, 0.08);
+    --hover-bg: rgba(0, 0, 0, 0.04);
+    --input-btn-hover-bg: rgba(0, 0, 0, 0.12);
+    --collapsible-hover-bg: rgba(98, 0, 238, 0.08);
+    --surface-bg-alt: rgba(0, 0, 0, 0.04);
+    --error-bg: rgba(176, 0, 32, 0.08);
+    --input-border: var(--divider);
+    --btn-remove-hover-bg: rgba(229, 57, 53, 0.1);
+    --on-primary: #ffffff;
+    --on-secondary: #000000;
+    --toggle-bg: var(--primary);
+    --toggle-color: #ffffff;
+    --type-string: #e91e63;
+    --type-number: #4caf50;
+    --type-boolean: #2196f3;
+    --type-null: #9e9e9e;
+    --type-array: #9c27b0;
+    --btn-edit-color: #ffeb3b;
+    --btn-delete-color: #ff5252;
+    --success: #4caf50;
+}
+
+[data-theme="dark"] {
+    --scheme: dark;
+    --background: #121212;
+    --surface: #1e1e1e;
+    --text-primary: rgba(255, 255, 255, 0.87);
+    --text-secondary: rgba(255, 255, 255, 0.60);
+    --divider: rgba(255, 255, 255, 0.12);
+    --shadow: 0 2px 4px rgba(0,0,0,0.3);
+    --input-bg: rgba(255, 255, 255, 0.08);
+    --input-bg-focus: rgba(255, 255, 255, 0.12);
+    --hover-bg: rgba(255, 255, 255, 0.04);
+    --input-btn-hover-bg: rgba(255, 255, 255, 0.16);
+    --collapsible-hover-bg: rgba(98, 0, 238, 0.2);
+    --surface-bg-alt: rgba(255, 255, 255, 0.04);
+    --input-border: rgba(255, 255, 255, 0.2);
+    --btn-remove-hover-bg: rgba(229, 57, 53, 0.1);
 }
 
 @media (prefers-color-scheme: dark) {
-    :root {
+    [data-theme="system"] {
+        color-scheme: dark;
         --background: #121212;
         --surface: #1e1e1e;
         --text-primary: rgba(255, 255, 255, 0.87);
         --text-secondary: rgba(255, 255, 255, 0.60);
         --divider: rgba(255, 255, 255, 0.12);
         --shadow: 0 2px 4px rgba(0,0,0,0.3);
+        --input-bg: rgba(255, 255, 255, 0.08);
+        --input-bg-focus: rgba(255, 255, 255, 0.12);
+        --hover-bg: rgba(255, 255, 255, 0.04);
+        --input-btn-hover-bg: rgba(255, 255, 255, 0.16);
+        --collapsible-hover-bg: rgba(98, 0, 238, 0.2);
+        --surface-bg-alt: rgba(255, 255, 255, 0.04);
+        --input-border: rgba(255, 255, 255, 0.2);
+        --btn-remove-hover-bg: rgba(229, 57, 53, 0.1);
     }
 }
 
@@ -191,7 +241,7 @@ body {
 }
 
 .json-row:hover {
-    background-color: rgba(0, 0, 0, 0.04);
+    background-color: var(--hover-bg);
 }
 
 .json-key {
@@ -218,7 +268,7 @@ body {
     padding: 6px 12px;
     border: none;
     border-radius: 4px;
-    background-color: rgba(0, 0, 0, 0.06);
+    background-color: var(--input-bg);
     color: var(--text-primary);
     min-width: 120px;
     transition: background-color 0.2s, box-shadow 0.2s;
@@ -226,7 +276,7 @@ body {
 
 .json-input:focus {
     outline: none;
-    background-color: rgba(0, 0, 0, 0.08);
+    background-color: var(--input-bg-focus);
     box-shadow: inset 0 0 0 2px var(--primary);
 }
 
@@ -234,7 +284,7 @@ body {
     padding: 4px 8px;
     border: none;
     border-radius: 4px;
-    background-color: rgba(0, 0, 0, 0.06);
+    background-color: var(--input-bg);
     cursor: pointer;
     font-size: 14px;
     transition: background-color 0.2s, transform 0.1s;
@@ -244,7 +294,7 @@ body {
 }
 
 .input-btn:hover {
-    background-color: rgba(0, 0, 0, 0.12);
+    background-color: var(--input-btn-hover-bg);
     transform: scale(1.1);
 }
 
@@ -261,46 +311,46 @@ body {
 }
 
 .json-input.string {
-    border-bottom: 2px solid #e91e63;
+    border-bottom: 2px solid var(--type-string);
 }
 
 .json-input.string:focus {
-    box-shadow: inset 0 0 0 2px #e91e63;
+    box-shadow: inset 0 0 0 2px var(--type-string);
 }
 
 .json-input.number {
-    border-bottom: 2px solid #4caf50;
+    border-bottom: 2px solid var(--type-number);
 }
 
 .json-input.number:focus {
-    box-shadow: inset 0 0 0 2px #4caf50;
+    box-shadow: inset 0 0 0 2px var(--type-number);
 }
 
 .json-input.boolean {
-    border-bottom: 2px solid #2196f3;
+    border-bottom: 2px solid var(--type-boolean);
     width: 70px;
 }
 
 .json-input.boolean:focus {
-    box-shadow: inset 0 0 0 2px #2196f3;
+    box-shadow: inset 0 0 0 2px var(--type-boolean);
 }
 
 .json-input.null {
-    border-bottom: 2px solid #9e9e9e;
+    border-bottom: 2px solid var(--type-null);
     width: 70px;
 }
 
 .json-input.null:focus {
-    box-shadow: inset 0 0 0 2px #9e9e9e;
+    box-shadow: inset 0 0 0 2px var(--type-null);
 }
 
 .json-input.array {
-    border-bottom: 2px solid #9c27b0;
+    border-bottom: 2px solid var(--type-array);
     width: 250px;
 }
 
 .json-input.array:focus {
-    box-shadow: inset 0 0 0 2px #9c27b0;
+    box-shadow: inset 0 0 0 2px var(--type-array);
 }
 
 .collapsible-row {
@@ -311,7 +361,7 @@ body {
 }
 
 .collapsible-row:hover {
-    background-color: rgba(98, 0, 238, 0.08);
+    background-color: var(--collapsible-hover-bg);
 }
 
 .json-toggle {
@@ -341,7 +391,7 @@ body {
 .error {
     color: var(--error);
     padding: 16px;
-    background-color: rgba(176, 0, 32, 0.08);
+    background-color: var(--error-bg);
     border-radius: 4px;
     margin: 8px 0;
 }
@@ -382,7 +432,7 @@ body {
 .file-input-group input {
     flex: 1;
     padding: 10px 12px;
-    border: 1px solid var(--divider);
+    border: 1px solid var(--input-border);
     border-radius: 4px;
     background-color: var(--background);
     color: var(--text-primary);
@@ -404,7 +454,7 @@ body {
 .manual-key-group input {
     flex: 1;
     padding: 10px 12px;
-    border: 1px solid var(--divider);
+    border: 1px solid var(--input-border);
     border-radius: 4px;
     background-color: var(--background);
     color: var(--text-primary);
@@ -462,7 +512,7 @@ body {
 
 .preview-area {
     padding: 16px;
-    background-color: rgba(0, 0, 0, 0.04);
+    background-color: var(--surface-bg-alt);
     border-radius: 4px;
     max-height: 200px;
     overflow: auto;
@@ -492,8 +542,8 @@ body {
     line-height: 1;
 }
 
-.key-edit-btn { color: #ffeb3b; }
-.key-delete-btn { color: #ff5252; }
+.key-edit-btn { color: var(--btn-edit-color); }
+.key-delete-btn { color: var(--btn-delete-color); }
 
 .key-edit-btn:hover,
 .key-delete-btn:hover {
@@ -541,7 +591,7 @@ body {
 
 .files-list {
     padding: 12px;
-    background-color: rgba(0, 0, 0, 0.04);
+    background-color: var(--surface-bg-alt);
     border-radius: 4px;
     max-height: 150px;
     overflow: auto;
@@ -580,12 +630,12 @@ body {
 }
 
 .dest-remove-btn:hover {
-    background-color: rgba(229, 57, 53, 0.1);
+    background-color: var(--btn-remove-hover-bg);
 }
 
 .result-area {
     padding: 16px;
-    background-color: rgba(0, 0, 0, 0.04);
+    background-color: var(--surface-bg-alt);
     border-radius: 4px;
 }
 
@@ -605,41 +655,9 @@ body {
 }
 
 .result-area .success {
-    color: #4caf50;
+    color: var(--success);
 }
 
 .result-area .error {
     color: var(--error);
-}
-
-@media (prefers-color-scheme: dark) {
-    .json-input,
-    .file-input-group input,
-    .manual-key-group input {
-        background-color: rgba(255, 255, 255, 0.08);
-    }
-    .json-input:focus {
-        background-color: rgba(255, 255, 255, 0.12);
-    }
-    .file-input-group input,
-    .manual-key-group input {
-        border-color: rgba(255, 255, 255, 0.2);
-    }
-    .json-row:hover {
-        background-color: rgba(255, 255, 255, 0.04);
-    }
-    .collapsible-row:hover {
-        background-color: rgba(98, 0, 238, 0.2);
-    }
-    .input-btn {
-        background-color: rgba(255, 255, 255, 0.08);
-    }
-    .input-btn:hover {
-        background-color: rgba(255, 255, 255, 0.16);
-    }
-    .preview-area,
-    .files-list,
-    .result-area {
-        background-color: rgba(255, 255, 255, 0.04);
-    }
 }
