@@ -39,7 +39,8 @@ const setMainMenu = (mainWindow, locale, currentLang, currentTheme) => {
     const themes = [
       { value: 'system', label: t('menu.theme.system') },
       { value: 'light', label: t('menu.theme.light') },
-      { value: 'dark', label: t('menu.theme.dark') }
+      { value: 'dark', label: t('menu.theme.dark') },
+      { value: 'carbon', label: t('menu.theme.carbon') }
     ]
     return themes.map(theme => ({
       label: theme.label,

@@ -1,5 +1,5 @@
 {
-  "app.title": "Json MegaApp",
+  "app.title": "JSON ER",
 
   "editor.tab": "JSON Editor",
   "replacer.tab": "Replacer",
@@ -51,5 +51,6 @@
   "menu.theme": "Theme",
   "menu.theme.system": "System",
   "menu.theme.light": "Light",
-  "menu.theme.dark": "Dark"
+  "menu.theme.dark": "Dark",
+  "menu.theme.carbon": "Carbon"
 }

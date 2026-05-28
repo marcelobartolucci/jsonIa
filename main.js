@@ -46,7 +46,8 @@ ipcMain.handle('update-locale', async (event, lang) => {
 
 ipcMain.handle('set-theme', async (event, theme) => {
   currentTheme = theme
-  nativeTheme.themeSource = theme
+  const native = theme === 'carbon' ? 'dark' : theme
+  nativeTheme.themeSource = native
 })
 
 app.whenReady().then(() => {

@@ -1,4 +1,4 @@
-# Json MegaApp
+# JSON ER
 
 Desktop application built with Electron for viewing, editing, and manipulating JSON files.
 
@@ -16,7 +16,7 @@ npm run dev
 
 ---
 
-# Json MegaApp
+# JSON ER
 
 Aplicación de escritorio hecha con Electron para visualizar, editar y manipular archivos JSON.
 
