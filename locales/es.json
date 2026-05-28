@@ -14,6 +14,9 @@
   "editor.saveError": "Error al guardar el archivo: {message}",
   "editor.parseError": "Error al analizar el JSON: {message}",
   "editor.confirmClose": "¿Tenés cambios sin guardar. ¿Querés guardarlos?",
+  "dialog.yes": "Sí",
+  "dialog.no": "No",
+  "dialog.cancel": "Cancelar",
 
   "editor.items": "{count} elementos",
   "editor.keys": "{count} claves",

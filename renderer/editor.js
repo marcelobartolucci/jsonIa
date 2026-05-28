@@ -54,10 +54,15 @@ function updateFileNameDisplay () {
 
 async function closeFile () {
   if (isDirty) {
-    const wantsToSave = await window.electronAPI.showConfirmDialog(t('editor.confirmClose'))
-    if (wantsToSave) {
+    const choice = await window.electronAPI.showConfirmDialog({
+      message: t('editor.confirmClose'),
+      buttons: [t('dialog.yes'), t('dialog.no'), t('dialog.cancel')]
+    })
+    if (choice === 0) {
       const saved = await saveCurrentFile()
       if (!saved) return
+    } else if (choice === 2) {
+      return
     }
   }
   currentFilePath = null

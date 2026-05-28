@@ -14,6 +14,9 @@
   "editor.saveError": "Error saving file: {message}",
   "editor.parseError": "Error parsing JSON: {message}",
   "editor.confirmClose": "You have unsaved changes. Do you want to save them?",
+  "dialog.yes": "Yes",
+  "dialog.no": "No",
+  "dialog.cancel": "Cancel",
 
   "editor.items": "{count} items",
   "editor.keys": "{count} keys",

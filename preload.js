@@ -17,5 +17,5 @@ contextBridge.exposeInMainWorld('electronAPI', {
   updateLocale: (lang) => ipcRenderer.invoke('update-locale', lang),
   onChangeLocale: (callback) => ipcRenderer.on('change-locale', callback),
   setTheme: (theme) => ipcRenderer.invoke('set-theme', theme),
-  showConfirmDialog: (message) => ipcRenderer.invoke('show-confirm-dialog', message)
+  showConfirmDialog: (options) => ipcRenderer.invoke('show-confirm-dialog', options)
 })
