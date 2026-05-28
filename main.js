@@ -125,8 +125,9 @@ ipcMain.handle('show-confirm-dialog', async (event, options) => {
   const result = await dialog.showMessageBox(mainWindow, {
     type: 'question',
     buttons: options.buttons,
-    defaultId: 2,
-    cancelId: 2,
+    noLink: true,
+    defaultId: options.defaultId,
+    cancelId: options.cancelId,
     message: options.message
   })
   return result.response

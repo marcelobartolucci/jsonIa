@@ -13,7 +13,7 @@
   "editor.saveSuccess": "¡Archivo guardado correctamente!",
   "editor.saveError": "Error al guardar el archivo: {message}",
   "editor.parseError": "Error al analizar el JSON: {message}",
-  "editor.confirmClose": "¿Tenés cambios sin guardar. ¿Querés guardarlos?",
+  "editor.confirmClose": "Tenés cambios sin guardar. ¿Querés guardarlos?",
   "dialog.yes": "Sí",
   "dialog.no": "No",
   "dialog.cancel": "Cancelar",

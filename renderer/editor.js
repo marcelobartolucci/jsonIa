@@ -56,7 +56,9 @@ async function closeFile () {
   if (isDirty) {
     const choice = await window.electronAPI.showConfirmDialog({
       message: t('editor.confirmClose'),
-      buttons: [t('dialog.yes'), t('dialog.no'), t('dialog.cancel')]
+      buttons: [t('dialog.yes'), t('dialog.no'), t('dialog.cancel')],
+      defaultId: 2,
+      cancelId: 2
     })
     if (choice === 0) {
       const saved = await saveCurrentFile()
