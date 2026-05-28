@@ -7,10 +7,10 @@
 
 :root, [data-theme="light"] {
     --primary: #3b4a5a;
-    --primary-variant: #2c3a48;
+    --primary-variant: #5a6a7a;
     --secondary: #5c7a8a;
     --background: #f8f9fa;
-    --surface: #ffffff;
+    --surface: #f0f0f0;
     --error: #b00020;
     --text-primary: rgba(0, 0, 0, 0.87);
     --text-secondary: rgba(0, 0, 0, 0.60);
@@ -18,9 +18,9 @@
     --shadow: 0 2px 4px rgba(0,0,0,0.08);
     --input-bg: rgba(0, 0, 0, 0.06);
     --input-bg-focus: rgba(0, 0, 0, 0.08);
-    --hover-bg: rgba(0, 0, 0, 0.04);
-    --input-btn-hover-bg: rgba(0, 0, 0, 0.12);
-    --collapsible-hover-bg: rgba(59, 74, 90, 0.08);
+    --hover-bg: rgba(0, 0, 0, 0.10);
+    --input-btn-hover-bg: rgba(0, 0, 0, 0.20);
+    --collapsible-hover-bg: rgba(59, 74, 90, 0.18);
     --surface-bg-alt: rgba(0, 0, 0, 0.04);
     --error-bg: rgba(176, 0, 32, 0.08);
     --input-border: var(--divider);
@@ -45,7 +45,7 @@
 
 [data-theme="dark"] {
     --primary: #8fa8bf;
-    --primary-variant: #a0b8cf;
+    --primary-variant: #b8d0e5;
     --secondary: #8aabc0;
     --background: #121212;
     --surface: #1e1e1e;
@@ -56,9 +56,9 @@
     --shadow: 0 2px 4px rgba(0,0,0,0.4);
     --input-bg: rgba(255, 255, 255, 0.08);
     --input-bg-focus: rgba(255, 255, 255, 0.12);
-    --hover-bg: rgba(255, 255, 255, 0.04);
-    --input-btn-hover-bg: rgba(255, 255, 255, 0.16);
-    --collapsible-hover-bg: rgba(143, 168, 191, 0.15);
+    --hover-bg: rgba(255, 255, 255, 0.10);
+    --input-btn-hover-bg: rgba(255, 255, 255, 0.25);
+    --collapsible-hover-bg: rgba(143, 168, 191, 0.28);
     --surface-bg-alt: rgba(255, 255, 255, 0.04);
     --error-bg: rgba(229, 115, 115, 0.12);
     --input-border: rgba(255, 255, 255, 0.2);
@@ -84,7 +84,7 @@
 [data-theme="carbon"] {
     color-scheme: dark;
     --primary: #8fa8bf;
-    --primary-variant: #a0b8cf;
+    --primary-variant: #b8d0e5;
     --secondary: #8aabc0;
     --background: #1c1c1c;
     --surface: #282828;
@@ -95,9 +95,9 @@
     --shadow: 0 2px 4px rgba(0,0,0,0.35);
     --input-bg: rgba(255, 255, 255, 0.06);
     --input-bg-focus: rgba(255, 255, 255, 0.10);
-    --hover-bg: rgba(255, 255, 255, 0.04);
-    --input-btn-hover-bg: rgba(255, 255, 255, 0.14);
-    --collapsible-hover-bg: rgba(143, 168, 191, 0.12);
+    --hover-bg: rgba(255, 255, 255, 0.10);
+    --input-btn-hover-bg: rgba(255, 255, 255, 0.22);
+    --collapsible-hover-bg: rgba(143, 168, 191, 0.25);
     --surface-bg-alt: rgba(255, 255, 255, 0.04);
     --error-bg: rgba(229, 115, 115, 0.10);
     --input-border: rgba(255, 255, 255, 0.15);
@@ -124,7 +124,7 @@
     [data-theme="system"] {
         color-scheme: dark;
         --primary: #8fa8bf;
-        --primary-variant: #a0b8cf;
+        --primary-variant: #b8d0e5;
         --secondary: #8aabc0;
         --background: #121212;
         --surface: #1e1e1e;
@@ -135,9 +135,9 @@
         --shadow: 0 2px 4px rgba(0,0,0,0.4);
         --input-bg: rgba(255, 255, 255, 0.08);
         --input-bg-focus: rgba(255, 255, 255, 0.12);
-        --hover-bg: rgba(255, 255, 255, 0.04);
-        --input-btn-hover-bg: rgba(255, 255, 255, 0.16);
-        --collapsible-hover-bg: rgba(143, 168, 191, 0.15);
+        --hover-bg: rgba(255, 255, 255, 0.10);
+        --input-btn-hover-bg: rgba(255, 255, 255, 0.25);
+        --collapsible-hover-bg: rgba(143, 168, 191, 0.28);
         --surface-bg-alt: rgba(255, 255, 255, 0.04);
         --error-bg: rgba(229, 115, 115, 0.12);
         --input-border: rgba(255, 255, 255, 0.2);
@@ -288,6 +288,30 @@ body {
 
 #save-btn:hover {
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+#close-btn {
+    padding: 8px 24px;
+    background-color: var(--header-btn-bg);
+    color: var(--on-primary);
+    border: 1px solid var(--header-btn-border);
+    border-radius: 4px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color 0.2s, border-color 0.2s;
+}
+
+#close-btn:hover {
+    background-color: var(--header-btn-hover-bg);
+    border-color: var(--header-btn-hover-border);
+}
+
+#close-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
 }
 
 #save-btn:disabled {
@@ -586,6 +610,7 @@ body {
 }
 
 .btn-primary:hover {
+    background-color: var(--primary-variant);
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 

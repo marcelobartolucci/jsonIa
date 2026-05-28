@@ -7,11 +7,13 @@
   "file.noLoaded": "Ningún archivo cargado",
   "file.open": "Abrir",
   "file.save": "Guardar",
+  "file.close": "Cerrar",
   "editor.placeholder": "Cargue un archivo JSON usando Archivo > Abrir JSON o Ctrl+O",
 
   "editor.saveSuccess": "¡Archivo guardado correctamente!",
   "editor.saveError": "Error al guardar el archivo: {message}",
   "editor.parseError": "Error al analizar el JSON: {message}",
+  "editor.confirmClose": "¿Tenés cambios sin guardar. ¿Querés guardarlos?",
 
   "editor.items": "{count} elementos",
   "editor.keys": "{count} claves",

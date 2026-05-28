@@ -2,22 +2,23 @@ const $jsonDisplay = $('#json-display')
 const $fileName = $('#file-name')
 const $saveBtn = $('#save-btn')
 const $openBtn = $('#open-btn')
+const $closeBtn = $('#close-btn')
 
 let currentFilePath = null
 let jsonData = null
+let isDirty = false
 
 $openBtn.addEventListener('click', openFile)
 window.electronAPI.onOpenFileDialog(openFile)
 
+$closeBtn.addEventListener('click', closeFile)
+
+$jsonDisplay.addEventListener('input', onInputChange)
+
 $saveBtn.addEventListener('click', async () => {
-  if (!currentFilePath) return
-  try {
-    const updatedJson = getUpdatedJson()
-    const content = JSON.stringify(updatedJson, null, 2)
-    await window.electronAPI.saveFile(currentFilePath, content)
+  const saved = await saveCurrentFile()
+  if (saved) {
     window.alert(t('editor.saveSuccess'))
-  } catch (e) {
-    window.alert(t('editor.saveError', { message: e.message }))
   }
 })
 
@@ -25,15 +26,61 @@ async function openFile () {
   const result = await window.electronAPI.openFile()
   if (result) {
     currentFilePath = result.filePath
-    $fileName.textContent = result.filePath
+    isDirty = false
+    updateFileNameDisplay()
     try {
       jsonData = JSON.parse(result.content)
       renderJson(jsonData)
       $saveBtn.disabled = false
+      $closeBtn.disabled = false
     } catch (e) {
       $jsonDisplay.innerHTML = '<div class="error">' + t('editor.parseError', { message: e.message }) + '</div>'
       $saveBtn.disabled = true
+      $closeBtn.disabled = false
     }
+  }
+}
+
+function onInputChange () {
+  if (!isDirty) {
+    isDirty = true
+    updateFileNameDisplay()
+  }
+}
+
+function updateFileNameDisplay () {
+  $fileName.textContent = currentFilePath + (isDirty ? ' *' : '')
+}
+
+async function closeFile () {
+  if (isDirty) {
+    const wantsToSave = await window.electronAPI.showConfirmDialog(t('editor.confirmClose'))
+    if (wantsToSave) {
+      const saved = await saveCurrentFile()
+      if (!saved) return
+    }
+  }
+  currentFilePath = null
+  jsonData = null
+  isDirty = false
+  $jsonDisplay.textContent = t('editor.placeholder')
+  $fileName.textContent = t('file.noLoaded')
+  $saveBtn.disabled = true
+  $closeBtn.disabled = true
+}
+
+async function saveCurrentFile () {
+  if (!currentFilePath) return false
+  try {
+    const updatedJson = getUpdatedJson()
+    const content = JSON.stringify(updatedJson, null, 2)
+    await window.electronAPI.saveFile(currentFilePath, content)
+    isDirty = false
+    updateFileNameDisplay()
+    return true
+  } catch (e) {
+    window.alert(t('editor.saveError', { message: e.message }))
+    return false
   }
 }
 

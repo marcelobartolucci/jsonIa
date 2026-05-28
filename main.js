@@ -121,6 +121,17 @@ ipcMain.handle('read-files', async (event, filePaths) => {
   })
 })
 
+ipcMain.handle('show-confirm-dialog', async (event, message) => {
+  const result = await dialog.showMessageBox(mainWindow, {
+    type: 'question',
+    buttons: ['Sí', 'No'],
+    defaultId: 1,
+    cancelId: 1,
+    message: message
+  })
+  return result.response === 0
+})
+
 ipcMain.handle('replace-json-path', async (event, expr, json, newValue) => {
   const results = JSONPath({ path: expr, json, resultType: 'all' })
   for (const ref of results) {
