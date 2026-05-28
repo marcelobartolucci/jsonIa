@@ -1,5 +1,3 @@
-const $ = selector => document.querySelector(selector)
-
 let locale = {}
 let currentLang = localStorage.getItem('locale') || 'es'
 let currentTheme = localStorage.getItem('theme') || 'system'
@@ -119,14 +117,15 @@ function createEditableInput (path, value, type) {
     try {
       const text = await navigator.clipboard.readText()
       input.value = text
+      input.dispatchEvent(new Event('input', { bubbles: true }))
     } catch (err) {
       console.error('Failed to paste')
     }
   })
 
   wrapper.appendChild(input)
-  wrapper.appendChild(pasteBtn)
   wrapper.appendChild(copyBtn)
+  wrapper.appendChild(pasteBtn)
 
   return wrapper
 }

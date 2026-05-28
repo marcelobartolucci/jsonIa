@@ -1,8 +1,8 @@
-const $jsonDisplay = $('#json-display')
-const $fileName = $('#file-name')
-const $saveBtn = $('#save-btn')
-const $openBtn = $('#open-btn')
-const $closeBtn = $('#close-btn')
+const $jsonDisplay = document.querySelector('#json-display')
+const $fileName = document.querySelector('#file-name')
+const $saveBtn = document.querySelector('#save-btn')
+const $openBtn = document.querySelector('#open-btn')
+const $closeBtn = document.querySelector('#close-btn')
 
 let currentFilePath = null
 let jsonData = null
